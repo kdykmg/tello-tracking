@@ -54,4 +54,5 @@ class Detect:
                 
                 
     def get_arr(self):
+        
         return self.arr
