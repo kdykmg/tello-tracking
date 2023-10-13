@@ -12,6 +12,7 @@ class Detect:
         self.arr=[[],[],[],[]]
         self.model = YOLO("train8.onnx")
         self.cap=None
+        
     def video_stream(self,video):
         self.cap=video
         

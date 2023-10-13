@@ -10,7 +10,7 @@ Tello=tello.tello()
 data_arr=[]
 
 def thread_video_stream():
-    tello.vid(predict)
+    Tello.vid(predict)
 def thread_yolo_data():
     data.move_scooter()
 def thread_yolo_predict():

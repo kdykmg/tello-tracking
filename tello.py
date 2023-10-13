@@ -14,8 +14,7 @@ class tello:
 
     def vid(self,Detect):
         video = cv2.VideoCapture("udp://@0.0.0.0:11111")
-        while 1:
-            Detect.video_stream(video)
+        Detect.video_stream(video)
             
 
     def send_data(self,msg):
