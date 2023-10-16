@@ -11,8 +11,8 @@ class Detect:
         os.chdir(self.path)
         self.arr=[[],[],[],[]]
         self.model = YOLO("train8.onnx")
-        self.cap=tello.vid_frame()
-        
+        self.cap=tello.video
+        print('a')
         
     def detect(self):
         num=0
