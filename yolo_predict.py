@@ -18,9 +18,10 @@ class Detect:
         num=0
         while 1:
             success, frame = self.cap.read()
-            num=(num+1)%4
+            num=(num+1)%1
             if success and num==0:
                 arr_re=[[],[],[],[]]
+                frame=cv2.resize(frame,(800,800),interpolation=cv2.INTER_AREA)
                 result = self.model.track(frame,persist=True,iou=0.5,imgsz=800,agnostic_nms=True)
                 plot=result[0].plot()
                 

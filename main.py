@@ -6,6 +6,7 @@ import tello
 
 data=yolo_data.Move()
 Tello=tello.tello()
+time.sleep(3)
 predict=yolo_predict.Detect(Tello)
 data_arr=[]
 
