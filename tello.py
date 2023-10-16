@@ -12,9 +12,9 @@ class tello:
         self.socket.sendto('command'.encode('utf-8'),self.tello_address)
         self.socket.sendto('streamon'.encode('utf-8'),self.tello_address)
 
-    def vid(self,Detect):
-        video = cv2.VideoCapture("udp://@0.0.0.0:11111")
-        Detect.video_stream(video)
+    def vid_frame(self):
+        video = cv2.VideoCapture("udp://@0.0.0.0:11111") 
+        return video
             
 
     def send_data(self,msg):

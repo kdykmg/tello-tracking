@@ -5,12 +5,11 @@ import yolo_predict
 import tello
 
 data=yolo_data.Move()
-predict=yolo_predict.Detect()
 Tello=tello.tello()
+predict=yolo_predict.Detect(Tello)
 data_arr=[]
 
-def thread_video_stream():
-    Tello.vid(predict)
+
 def thread_yolo_data():
     data.move_scooter()
 def thread_yolo_predict():
@@ -20,9 +19,6 @@ def thread_data():
     data.set_af_arr(data_arr)
     time.sleep(0.2)
     
-tello_thread=threading.Thread(target=thread_video_stream)
-tello_thread.daemon=True
-tello_thread.start()
 
 data_thread=threading.Thread(target=thread_yolo_data)
 data_thread.daemon=True

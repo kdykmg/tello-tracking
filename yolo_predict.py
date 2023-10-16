@@ -5,20 +5,16 @@ import time
 
 
 class Detect:
-    def __init__(self):
+    def __init__(self,tello):
         self.path=os.path.dirname(__file__)
         self.path=self.path+''
         os.chdir(self.path)
         self.arr=[[],[],[],[]]
         self.model = YOLO("train8.onnx")
-        self.cap=None
+        self.cap=tello.vid_frame()
         
-    def video_stream(self,video):
-        self.cap=video
         
     def detect(self):
-        while self.cap==None:
-            time.sleep(0.1)
         num=0
         while 1:
             success, frame = self.cap.read()
