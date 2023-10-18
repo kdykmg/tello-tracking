@@ -11,7 +11,8 @@ class tello:
         self.local_video_port = 11111
         self.socket.sendto('command'.encode('utf-8'),self.tello_address)
         self.socket.sendto('streamon'.encode('utf-8'),self.tello_address)
-        self.video=cv2.VideoCapture("udp://@0.0.0.0:11111")
+        self.video=cv2.VideoCapture("test3.mp4")
+        #self.video=cv2.VideoCapture("udp://@0.0.0.0:11111")
     """
     def vid_frame(self):
         video = cv2.VideoCapture("udp://@0.0.0.0:11111") 

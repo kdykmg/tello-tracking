@@ -6,7 +6,6 @@ import tello
 
 data=yolo_data.Move()
 Tello=tello.tello()
-time.sleep(3)
 predict=yolo_predict.Detect(Tello)
 data_arr=[]
 
@@ -31,11 +30,12 @@ predict_thread.start()
 
 cal_thread=threading.Thread(target=thread_data)
 cal_thread.daemon=True
-cal_thread.start()
+#cal_thread.start()
 
+time.sleep(30)
 while 1:
     tracking,scooter=data.get_tracking_scooter()
     if tracking!=None:
         print(scooter)
-        
+ 
     
