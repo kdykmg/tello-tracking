@@ -1,8 +1,6 @@
 from ultralytics import YOLO
 import os
 import cv2
-import time
-
 
 class Detect:
     def __init__(self,tello):
@@ -11,14 +9,15 @@ class Detect:
         os.chdir(self.path)
         self.arr=[[],[],[],[]]
         self.model = YOLO("train8.onnx",task='detect')
-        self.cap=cv2.VideoCapture("test3.mp4")
+        self.cap=tello.video
+        
         
     def detect(self):
-        num=0
         while 1:
+            #total_frame=int(self.cap.get(cv2.CAP_PROP_FRAME_COUNT))
+            #self.cap.set(cv2.CAP_PROP_POS_FRAMES, total_frame-1)
             success, frame = self.cap.read()
-            num=(num+1)%4
-            if success and num==0:
+            if success:
                 arr_re=[[],[],[],[]]
                 result = self.model.track(frame,persist=True,iou=0.5,imgsz=800,agnostic_nms=True)
                 plot=result[0].plot()
@@ -29,8 +28,8 @@ class Detect:
                         box=box.xywh
                         x=box[0][0].cpu().detach().numpy().tolist()
                         y=box[0][1].cpu().detach().numpy().tolist()
-                        w=box[0][2].cpu().detach().numpy().tolist()
-                        line = [x,y,w,ids]
+                        h=box[0][3].cpu().detach().numpy().tolist()
+                        line = [x,y,h,ids]
                         if num==0:
                             arr_re[0].append(line)
                         elif num==1:
@@ -40,6 +39,7 @@ class Detect:
                         elif num==3:
                             arr_re[3].append(line)
                 self.arr=arr_re
+                print(self.arr)
                 frame=cv2.resize(plot,(0,0),fx=0.7,fy=0.7,interpolation=cv2.INTER_LINEAR)
                 cv2.imshow("Video", frame)
                 if cv2.waitKey(1) & 0xFF == ord("q"):
@@ -48,5 +48,4 @@ class Detect:
                 
                 
     def get_arr(self):
-        
         return self.arr
