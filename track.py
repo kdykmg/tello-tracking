@@ -11,7 +11,7 @@ class tracking:
         self.stand_tello_height=2
         self.stand_scooter_height=1
         self.stand_scooter_weight=1
-        self.stand_distance=3
+        self.stand_distance=1
         self.real_distance=0.879*self.stand_distance/self.middle
         self.cross_scooter=math.sqrt(self.stand_scooter_height**2+self.stand_scooter_weight**2)
         self.croos_distance=math.sqrt((self.stand_tello_height-self.stand_scooter_height)**2+self.stand_distance**2)
@@ -20,31 +20,37 @@ class tracking:
         
         
     def tracking(self,scooter):
-        
         if scooter==[]:
+            #self.tello.send_data("stop")
             return
-        print(scooter[0])
-        """
+    
         x=scooter[0]
         y=scooter[1]
         h=scooter[3]
+        print(x,y,h)
         
         h=h*self.real_distance
         dis=h*self.distsnce-self.stand_scooter_weight/2  
+        print(dis)
+        
         if dis<self.stand_distance:
-             self.tello.send_data("stop")
+             #self.tello.send_data("stop")
+             print("stop")
              return
+        
         set_speed=int(100-100*self.stand_distance/dis)
+        print("speed:",set_speed)
+        
         if self.land:
-            self.tello.send_data("takeoff")
+            #self.tello.send_data("takeoff")
+            self.land=False
+            print("takeoff")
         if x/self.middle>1.1:
-            self.tello.send_data("ccw 10")
+            #self.tello.send_data("ccw 10")
+            print("ccw10")
         elif x/self.middle<0.9:
-            self.tello.send_data("cw 10")
-            
-        self.tello.send_data("speed %f" %set_speed)
+            #self.tello.send_data("cw 10")
+            print("cw10")
+        #self.tello.send_data("speed %d" %det_speed)
     
-    
-    def set_scooter(self,Scooter):
-        self.scooter=Scooter
-        """
+        

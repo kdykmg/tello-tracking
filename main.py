@@ -9,28 +9,22 @@ from multiprocessing import Pipe
 
 Tello=tello.tello()
 predict=yolo_predict.Detect(Tello)
-data=yolo_data.Move(predict)
+data=yolo_data.Move()
 Track=track.tracking(Tello)
 
-def thread_yolo_data():
-    data.move_scooter()
-def process_yolo_predict():
-    predict.detect()
+def thread_yolo_data(p_pipe):
+    data.move_scooter(p_pipe)
+def process_yolo_predict(c_pipe):
+    predict.detect(c_pipe)
 
 if __name__ == '__main__':
-    
-    pipe=Pipe()
-    
-    data_thread=threading.Thread(target=thread_yolo_data)
+    p_pipe,c_pipe=Pipe() 
+    predict_process=multiprocessing.Process(target=process_yolo_predict,args=(c_pipe,),daemon=True)
+    predict_process.start()
+    data_thread=threading.Thread(target=thread_yolo_data,args=(p_pipe,))
     data_thread.daemon=True
     data_thread.start()
-
-    predict_process=multiprocessing.Process(target=process_yolo_predict,daemon=True)
-    predict_process.start()
-
-   
     while 1:
         Track.tracking(data.get_tracking_scooter())
-        time.sleep(0.3)
-    
+        time.sleep(0.1)
     

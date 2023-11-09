@@ -15,12 +15,9 @@ class tello:
         self.video=cv2.VideoCapture("test2.mp4")
         #self.video=cv2.VideoCapture("udp://@0.0.0.0:11111")
 
-
     def send_data(self,msg):
         self.abort_flag = False
         self.socket.sendto(msg.encode('utf-8'), self.tello_address)       
-        
-        
         
     def get_cv2_size(self):
         cv2_size=[self.video.get(cv2.CAP_PROP_FRAME_WIDTH),self.video.get(cv2.CAP_PROP_FRAME_HEIGHT)]
